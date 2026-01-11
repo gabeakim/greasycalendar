@@ -6,6 +6,28 @@ export default function DayCell({ day, isToday, position = { top: false, left: f
     const [dragOverHighlight, setDragoverHighlight] = React.useState(false)
     const dragCounter = React.useRef(0);
     const dropZoneRef = React.useRef(null);
+    function dragEnterHandler(e) {
+        e.preventDefault();
+        if (e.target === dropZoneRef.current || dropZoneRef.current.contains(e.target)) {
+            dragCounter.current++;
+            setDragoverHighlight(day && true);
+        }
+    }
+    function dragLeaveHandler(e) {
+        e.preventDefault();
+        if (dragCounter.current > 0) {
+            dragCounter.current--;
+        }
+        if (dragCounter.current === 0) {
+            setDragoverHighlight(false);
+        }
+    }
+    function dropHandler(e) {
+        e.preventDefault();
+        dragCounter.current = 0;
+        setDragoverHighlight(false);
+    }
+
     const cls = [styles.dayCell];
     if (!day) cls.push(styles.empty);
     if (isToday) cls.push(styles.today);
@@ -16,27 +38,9 @@ export default function DayCell({ day, isToday, position = { top: false, left: f
         <div
             className={cls.join(' ')}
             ref={dropZoneRef}
-            onDragEnter={(e) => {
-                e.preventDefault();
-                if (e.target === dropZoneRef.current || dropZoneRef.current.contains(e.target)) {
-                    dragCounter.current++;
-                    setDragoverHighlight(day && true)
-                }
-            }}
-            onDragLeave={(e) => {
-                e.preventDefault();
-                if (dragCounter.current > 0) {
-                    dragCounter.current--;
-                }
-                if (dragCounter.current === 0) {
-                    setDragoverHighlight(false)
-                }
-            }}
-            onDrop={(e) => {
-                e.preventDefault();
-                dragCounter.current = 0;
-                setDragoverHighlight(false);
-            }}>
+            onDragEnter={dragEnterHandler}
+            onDragLeave={dragLeaveHandler}
+            onDrop={dropHandler}>
             <DragoverBox visible={dragOverHighlight} />
             {day ? day.getDate() : ''}
         </div>

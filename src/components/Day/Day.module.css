@@ -6,7 +6,9 @@
     position: relative;
     height: 1440px;
     /* 24 * 60 minutes */
-    border: 1px solid #e6e6e6;
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    border-right: 1px solid #e6e6e6;
     background: #fff;
     overflow: auto;
 }

@@ -36,7 +36,7 @@ export default function Week({ startDate = new Date(), showGlobalNowLine = true,
                         <div className={styles.date}>{d.toLocaleDateString()}</div>
                     </div>
                     <div className={styles.dayInner}>
-                        <Day date={d} tasks={filterDayTasks(d, tasks)} showNowLine={false} minuteHeight={minuteHeight} dragTask={dragTask} />
+                        <Day date={d} tasks={filterDayTasks(d, tasks)} showNowLine={false} minuteHeight={minuteHeight} dragTask={dragTask} first={idx === 0} />
                     </div>
                 </div>
             ))}

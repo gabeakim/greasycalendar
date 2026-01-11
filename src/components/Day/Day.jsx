@@ -9,11 +9,49 @@ function formatHour(h) {
     return `${hour}:00 ${am ? 'AM' : 'PM'}`;
 }
 
-export default function Day({ showNowLine = true, visibleRanges = [[0, 24 * 60 * 60]], minuteHeight = 1, date = new Date(), tasks = [], dragTask }) {
+export default function Day({ showNowLine = true, visibleRanges = [[0, 24 * 60 * 60]], minuteHeight = 1, date = new Date(), tasks = [], dragTask, first = true }) {
     const [now, setNow] = React.useState(new Date());
+
     const [dragOverHighlight, setDragoverHighlight] = React.useState({ active: false, positionSet: false, y: 0, height: 0 })
     const dragCounter = React.useRef(0);
     const dropZoneRef = React.useRef(null);
+
+    function dragoverHandler(e) {
+        e.preventDefault();
+        if (dropZoneRef.current) {
+            var rect = dropZoneRef.current.getBoundingClientRect();
+            const snapSize = minuteHeight * 30;
+            const rawY = e.clientY - rect.top
+            const snappedY = Math.round(rawY / snapSize) * snapSize;
+            const height = (dragTask.duration) * minuteHeight
+            setDragoverHighlight({ ...dragOverHighlight, positionSet: true, y: snappedY, height: `${height}px` });
+        }
+    }
+
+    function dragEnterHandler(e) {
+        e.preventDefault();
+        if (e.target === dropZoneRef.current || dropZoneRef.current.contains(e.target)) {
+            dragCounter.current++;
+            setDragoverHighlight({ ...dragOverHighlight, active: true });
+        }
+    }
+
+    function dragLeaveHandler(e) {
+        e.preventDefault();
+        if (dragCounter.current > 0) {
+            dragCounter.current--;
+        }
+        if (dragCounter.current === 0) {
+            setDragoverHighlight({ ...dragOverHighlight, active: false, positionSet: false });
+        }
+    }
+
+    function dropHandler(e) {
+        e.preventDefault();
+        dragCounter.current = 0;
+        setDragoverHighlight({ ...dragOverHighlight, active: false, positionSet: false });
+    }
+
     React.useEffect(() => {
         const t = setInterval(() => setNow(new Date()), 30_000);
         return () => clearInterval(t);
@@ -46,43 +84,14 @@ export default function Day({ showNowLine = true, visibleRanges = [[0, 24 * 60 *
         <div className={styles.dayWrap}>
             <div
                 ref={dropZoneRef}
-                onDragOver={(e) => {
-                    e.preventDefault();
-                    console.log(dragTask)
-                    if (dropZoneRef.current) {
-                        var rect = dropZoneRef.current.getBoundingClientRect();
-                        const snapSize = minuteHeight * 30;
-                        const rawX = e.clientX - rect.left
-                        const rawY = e.clientY - rect.top
-                        const snappedY = Math.round(rawY / snapSize) * snapSize;
-                        const height = (dragTask.duration) * minuteHeight
-                        setDragoverHighlight({ ...dragOverHighlight, positionSet: true, y: snappedY, height: `${height}px` });
-                    }
-
-                }}
-                onDragEnter={(e) => {
-                    e.preventDefault();
-                    if (e.target === dropZoneRef.current || dropZoneRef.current.contains(e.target)) {
-                        dragCounter.current++;
-                        setDragoverHighlight({ ...dragOverHighlight, active: true });
-                    }
-                }}
-                onDragLeave={(e) => {
-                    e.preventDefault();
-                    if (dragCounter.current > 0) {
-                        dragCounter.current--;
-                    }
-                    if (dragCounter.current === 0) {
-                        setDragoverHighlight({ ...dragOverHighlight, active: false, positionSet: false });
-                    }
-                }}
-
-                onDrop={(e) => {
-                    e.preventDefault();
-                    dragCounter.current = 0;
-                    setDragoverHighlight({ ...dragOverHighlight, active: false, positionSet: false });
-                }}
-                className={styles.day} data-day="true" style={{ height: `${dayHeight}px` }}>
+                onDragOver={dragoverHandler}
+                onDragEnter={dragEnterHandler}
+                onDragLeave={dragLeaveHandler}
+                onDrop={dropHandler}
+                className={styles.day}
+                data-day="true"
+                style={{ height: `${dayHeight}px`, borderLeft: `${first ? '1px solid #e6e6e6' : 'none'}` }}
+            >
                 <DragoverBox visible={dragOverHighlight.active && dragOverHighlight.positionSet} y={dragOverHighlight.y} height={dragOverHighlight.height} />
                 {hours.map((h) => (
                     <div key={h} className={styles.hour} style={{ height: `${hourHeight}px` }}>
