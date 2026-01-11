@@ -1,0 +1,21 @@
+.container {
+    position: relative;
+    /* 1. Establishes the positioning context for children */
+    width: 400px;
+    height: 200px;
+    border: 2px solid black;
+    padding: 20px;
+}
+
+.overlay-box {
+    position: absolute;
+    background-color: rgba(0, 70, 168, .1);
+    /* Example styling */
+    padding: 10px;
+    z-index: 10;
+    width: 95%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 4px dashed rgba(0, 70, 168, 0.8);
+    /* Ensures the overlay is on top of other content */
+}

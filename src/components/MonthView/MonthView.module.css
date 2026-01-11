@@ -1,0 +1,38 @@
+.monthView {
+    border: 1px solid #eee;
+    padding: 8px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    /* allow children to stretch inside flex */
+    box-sizing: border-box;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.weekday {
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem
+}
+
+.weeks {
+    display: grid;
+    /* allow up to 6 weeks, each row takes equal share */
+    grid-template-rows: repeat(6, 1fr);
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    align-items: stretch;
+}

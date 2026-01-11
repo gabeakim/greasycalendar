@@ -1,0 +1,71 @@
+.weekWrap {
+    display: flex;
+    gap: 0;
+    overflow: auto;
+    padding: 8px 0 20px 0;
+    position: relative;
+    width: 100%;
+}
+
+.dayColumn {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 12;
+    background: #fff;
+    border: 1px solid #eee;
+    border-bottom: none;
+    padding: 8px 6px;
+    text-align: center;
+}
+
+.weekday {
+    font-weight: 600;
+}
+
+.date {
+    font-size: 12px;
+    color: #666;
+}
+
+.dayInner {
+    overflow: hidden;
+    max-width: 100%;
+}
+
+/* Remove duplicate vertical borders between adjacent Day components when laid out in Week */
+.dayColumn .day {
+    /* remove inner left/right borders so adjacent days appear as a single grid */
+    border-left: none;
+    border-right: none;
+}
+
+.dayColumn:first-child .day {
+    border-left: 1px solid #e6e6e6;
+}
+
+.dayColumn:last-child .day {
+    border-right: 1px solid #e6e6e6;
+}
+
+.globalNowLine {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e53935;
+    box-shadow: 0 0 6px rgba(229, 57, 53, 0.3);
+    transform: translateY(-50%);
+    z-index: 1000;
+    pointer-events: none;
+    max-width: 100%;
+}
+
+.globalNowBadge {
+    display: none
+}

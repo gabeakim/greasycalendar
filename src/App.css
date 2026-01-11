@@ -1,0 +1,129 @@
+.grid-container {
+  display: grid;
+  /* Creates 5 columns, each taking up an equal fraction (1fr) of the available space */
+  grid-template-columns: repeat(5, 1fr);
+  /* Sets a small gap between grid items */
+  gap: 0px;
+  width: fit-content;
+  /* Adjust container width as needed */
+}
+
+/* Ensure the document and root element fill the viewport so child layouts can use 100% height */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.grid-item {
+  background-color: #007bff;
+  aspect-ratio: 1 / 1;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Layout for app with sidebar */
+.app-root {
+  padding: 0px 12px 0px 0px;
+  font-family: Inter, Roboto, system-ui, sans-serif;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.app-layout {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+  min-height: calc(100vh - 24px);
+}
+
+/* Wrapper around the Sidebar so we can absolutely position the pinned button */
+.sidebar-column {
+  width: 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Button inside the middle column */
+.sidebar-pin-btn {
+  margin-top: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  color: #000;
+  box-shadow: 0 4px 10px rgba(11, 120, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  position: relative;
+}
+
+/* Hamburger icon inside the button */
+.sidebar-pin-btn .hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 16px;
+  height: 14px;
+}
+
+/* SVG icon transitions: two SVGs (hamburger + arrow) that crossfade/translate */
+.sidebar-pin-btn .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: opacity 180ms ease, transform 220ms cubic-bezier(.2, .9, .3, 1);
+  color: inherit;
+}
+
+.sidebar-pin-btn .icon-hamburger {
+  opacity: 1;
+}
+
+.sidebar-pin-btn .icon-arrow {
+  opacity: 0;
+}
+
+.sidebar-pin-btn.open .icon-hamburger {
+  opacity: 0;
+  transform: translate(-50%, -50%) translateX(6px) scale(0.9);
+}
+
+.sidebar-pin-btn.open .icon-arrow {
+  opacity: 1;
+  transform: translate(-50%, -50%) translateX(0) scale(1);
+}
+
+.sidebar-pin-btn .hamburger {
+  position: relative;
+  height: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.main-content>h1 {
+  margin: 0 0 12px 0;
+  font-size: 1.25rem
+}

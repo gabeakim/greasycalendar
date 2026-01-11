@@ -1,0 +1,33 @@
+.calendarRoot {
+    max-width: 90%;
+    margin: 8px;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    /* allow flex children to shrink/grow properly */
+}
+
+.calendarHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px
+}
+
+.navButton {
+    background: #2563eb;
+    border: none;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px
+}
+
+.navButton:hover {
+    cursor: pointer;
+}
+
+.calendarTitle {
+    font-weight: 600
+}

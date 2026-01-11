@@ -1,0 +1,32 @@
+.root {
+    width: 200px;
+    background: #e6e6e6;
+    /* border: 1px solid #e6e6e6; */
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: width 180ms ease, padding 180ms ease;
+}
+
+.collapsed {
+    width: 0;
+    padding: 0;
+}
+
+/* content mask: fade/slide children when collapsed */
+.nav {
+    overflow: hidden;
+}
+
+.content {
+    transition: opacity 180ms ease, transform 180ms ease;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.collapsed .content {
+    opacity: 0;
+    transform: translateX(-8px);
+    pointer-events: none;
+}

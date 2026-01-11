@@ -1,0 +1,62 @@
+.dayWrap {
+    margin: 12px 0;
+}
+
+.day {
+    position: relative;
+    height: 1440px;
+    /* 24 * 60 minutes */
+    border: 1px solid #e6e6e6;
+    background: #fff;
+    overflow: auto;
+}
+
+.hour {
+    display: flex;
+    align-items: flex-start;
+    height: 60px;
+    box-sizing: border-box;
+    border-top: 1px solid #f4f4f4;
+}
+
+.hourLabel {
+    width: 72px;
+    padding: 6px 8px;
+    font-size: 12px;
+    color: #666;
+    background: #fafafa;
+    border-right: 1px solid #f0f0f0;
+}
+
+.hourBody {
+    width: 100%;
+    min-width: 20px;
+    flex: 1;
+}
+
+/* ensure the hour body has a small minimum so the column doesn't collapse entirely */
+
+.nowLine {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e53935;
+    box-shadow: 0 0 6px rgba(229, 57, 53, 0.3);
+    transform: translateY(-50%);
+    z-index: 5;
+}
+
+.nowBadge {
+    display: none;
+}
+
+/* overlays that darken the day except visible ranges */
+.overlayDark {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 3;
+    pointer-events: none;
+}

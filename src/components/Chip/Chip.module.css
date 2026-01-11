@@ -1,0 +1,29 @@
+:root {
+  --chipRadius: 7px;
+}
+
+.chipWrapper {
+  height: 40px;
+  width: 150px;
+  background-color: white;
+  color: black;
+  border-radius: var(--chipRadius);
+  padding: 0px;
+  display: grid;
+  grid-template-columns: 0.05fr 1fr;
+  grid-template-areas: 'chipStrip chipText';
+  cursor: grab;
+}
+
+.chipStrip {
+  grid-area: chipStrip;
+  border-top-left-radius: var(--chipRadius);
+  border-bottom-left-radius: var(--chipRadius);
+}
+
+.chipText {
+  grid-area: chipText;
+  align-self: center;
+  padding-left: 10px;
+  font-weight: 500;
+}
