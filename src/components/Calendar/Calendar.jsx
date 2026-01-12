@@ -4,7 +4,7 @@ import Week from '../Week/Week';
 import Day from '../Day/Day';
 import styles from './Calendar.module.css';
 
-export default function Calendar({ tasks, dragTask }) {
+export default function Calendar({ tasks, dragTask, dropTask }) {
     const [current, setCurrent] = useState(() => {
         const now = new Date();
         return new Date(now.getFullYear(), now.getMonth(), 1);
@@ -94,9 +94,9 @@ export default function Calendar({ tasks, dragTask }) {
                     {/* granularity removed; keep view selector only */}
                 </div>
             </div>
-            {view === 'month' && <MonthView monthStart={current} tasks={filterMonthTasks(current, tasks)} dragTask={dragTask} />}
-            {view === 'week' && <Week startDate={current} tasks={filterWeekTasks(current, tasks)} dragTask={dragTask} />}
-            {view === 'day' && <Day date={current} tasks={filterDayTasks(current, tasks)} dragTask={dragTask} />}
+            {view === 'month' && <MonthView monthStart={current} tasks={filterMonthTasks(current, tasks)} dragTask={dragTask} dropTask={dropTask} />}
+            {view === 'week' && <Week startDate={current} tasks={filterWeekTasks(current, tasks)} dragTask={dragTask} dropTask={dropTask} />}
+            {view === 'day' && <Day date={current} tasks={filterDayTasks(current, tasks)} dragTask={dragTask} dropTask={dropTask} />}
         </div>
     );
 }

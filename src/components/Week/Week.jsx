@@ -8,7 +8,7 @@ function secondsSinceMidnight(date = new Date()) {
     return date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds();
 }
 
-export default function Week({ startDate = new Date(), showGlobalNowLine = true, minuteHeight = 1, tasks = [], dragTask }) {
+export default function Week({ startDate = new Date(), showGlobalNowLine = true, minuteHeight = 1, tasks = [], dragTask, dropTask }) {
     const s = new Date(startDate);
     const dayIndex = s.getDay();
     s.setDate(s.getDate() - dayIndex);
@@ -36,7 +36,7 @@ export default function Week({ startDate = new Date(), showGlobalNowLine = true,
                         <div className={styles.date}>{d.toLocaleDateString()}</div>
                     </div>
                     <div className={styles.dayInner}>
-                        <Day date={d} tasks={filterDayTasks(d, tasks)} showNowLine={false} minuteHeight={minuteHeight} dragTask={dragTask} first={idx === 0} />
+                        <Day date={d} tasks={filterDayTasks(d, tasks)} showNowLine={false} minuteHeight={minuteHeight} dragTask={dragTask} first={idx === 0} dropTask={dropTask} />
                     </div>
                 </div>
             ))}

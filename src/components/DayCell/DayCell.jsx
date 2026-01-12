@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './DayCell.module.css';
 import DragoverBox from '../DragoverBox/DragoverBox';
 
-export default function DayCell({ day, isToday, position = { top: false, left: false } }) {
+export default function DayCell({ day, isToday, position = { top: false, left: false } }, dropTask) {
     const [dragOverHighlight, setDragoverHighlight] = React.useState(false)
     const dragCounter = React.useRef(0);
     const dropZoneRef = React.useRef(null);

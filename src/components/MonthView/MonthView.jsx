@@ -5,7 +5,7 @@ import styles from './MonthView.module.css';
 
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-export default function MonthView({ monthStart, tasks = [] }) {
+export default function MonthView({ monthStart, tasks = [], dropTask }) {
     const matrix = buildMonthMatrix(monthStart);
     const today = new Date();
 
@@ -20,7 +20,7 @@ export default function MonthView({ monthStart, tasks = [] }) {
                 {matrix.map((week, wi) => (
                     <div className={styles.week} key={wi}>
                         {week.map((day, di) => (
-                            <DayCell key={di} day={day} isToday={day && isSameDay(day, today)} position={{ top: wi === 0, left: di === 0 }} />
+                            <DayCell key={di} day={day} isToday={day && isSameDay(day, today)} position={{ top: wi === 0, left: di === 0 }} dropTask={dropTask} />
                         ))}
                     </div>
                 ))}

@@ -15,6 +15,19 @@ export default function App() {
     new Task({ label: 'Workout', color: 'green', start: Date.now(), duration: 30 })
   ]);
 
+  const dropTask = (id, start) => {
+    setTasks(
+      tasks.map(task => {
+        if (task.id === id) {
+          const newTask = Object.assign(Object.create(Object.getPrototypeOf(task)), task);
+          newTask.start = start;
+          return newTask;
+        }
+        return task;
+      })
+    );
+  };
+
   React.useEffect(() => {
     try { localStorage.setItem('sidebar-collapsed', collapsed ? '1' : '0'); } catch (e) { }
   }, [collapsed]);
@@ -50,7 +63,7 @@ export default function App() {
         </div>
         <main className="main-content">
           <h1>Calendar</h1>
-          <Calendar tasks={tasks.filter(t => t.getStart() !== null)} dragTask={dragTask} />
+          <Calendar tasks={tasks.filter(t => t.getStart() !== null)} dragTask={dragTask} dropTask={dropTask} />
         </main>
       </div>
     </div >

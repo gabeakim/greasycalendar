@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './DragoverBox.module.css';
+import styles from './EventOverlay.module.css';
 
-export default function DragoverBox({ visible, x, y, height }) {
+export default function EventOverlay({ x, y, height, text, color }) {
     return (
         <>
             <div
@@ -10,9 +10,15 @@ export default function DragoverBox({ visible, x, y, height }) {
                     height: height ? height : '95%', top: (y !== undefined) ? y : "50%",
                     left: (x !== undefined) ? x : "50%",
                     transform: `${(x !== undefined) ? '' : 'translateX(-50%)'} ${(y !== undefined) ? '' : 'translateY(-50%)'}`,
-                    visibility: visible ? "visible" : "hidden"
+                    opacity: 0.5,
+                    backgroundColor: color || 'blue',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-end',
+                    justifyContent: 'flex-start',
+                    color: 'white'
                 }}>
-
+                {text}
             </div >
         </>
     );
