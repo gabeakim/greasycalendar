@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import Calendar from './components/Calendar/Calendar';
 import Chip from './components/Chip/Chip';
 import Task from "./utils/Task";
+import TaskCreationForm from "./components/TaskCreationForm/TaskCreationForm";
 
 export default function App() {
   const [dragTask, setDragTask] = React.useState(null);
@@ -14,6 +15,10 @@ export default function App() {
     new Task({ label: 'Meeting', color: 'purple', start: Date.now(), duration: 60 }),
     new Task({ label: 'Workout', color: 'green', start: Date.now(), duration: 30 })
   ]);
+
+  const addTask = (label, color, start, duration) => {
+    setTasks([...tasks, new Task({ label, color, start, duration })]);
+  };
 
   const dropTask = (id, start) => {
     setTasks(
@@ -36,9 +41,16 @@ export default function App() {
     <div className="app-root">
       <div className="app-layout">
         <Sidebar collapsed={collapsed}>
+          <TaskCreationForm addTask={addTask} />
           <div className="sidebar-chips" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <h1>Tasks</h1>
+            <h3>Unscheduled</h3>
             {tasks.map((t) => (
-              <Chip key={t.id} chipData={t} setDragTask={setDragTask} />
+              !t.start && <Chip key={t.id} chipData={t} setDragTask={setDragTask} />
+            ))}
+            <h3>Scheduled</h3>
+            {tasks.map((t) => (
+              t.start && <Chip key={t.id} chipData={t} setDragTask={setDragTask} />
             ))}
           </div>
         </Sidebar>
